@@ -49,14 +49,14 @@ function inputOperator(operator) {
         secondOperator = operator;
         secondOperand = displayValue;
         result = operate(Number(firstOperand), Number(secondOperand), firstOperator);
-        displayValue = result.toString();
+        displayValue = rounded(result).toString();
         firstOperand = displayValue;
         result = null;
     } else if (firstOperator !== null && secondOperator !== null) {
         secondOperand = displayValue;
         result = operate(Number(firstOperand), Number(secondOperand), secondOperator)
         secondOperator = operator;
-        displayValue = result.toString();
+        displayValue = rounded(result).toString();
         firstOperand = displayValue;
         result = null;
     } else {
@@ -74,7 +74,7 @@ function inputEquals() {
         if (result === "Error") {
             displayValue = result;
         } else {
-            displayValue = result.toString();
+            displayValue = rounded(result).toString();
             firstOperand = displayValue;
             secondOperand = null;
             firstOperator = null;
@@ -87,7 +87,7 @@ function inputEquals() {
         if (result === "Error") {
             displayValue = result;
         } else {
-            displayValue = result.toString();
+            displayValue = rounded(result).toString();
             firstOperand = displayValue;
             secondOperand = null;
             firstOperator = null;
@@ -95,6 +95,10 @@ function inputEquals() {
             result = null;
         }
     }
+}
+
+function rounded (num) {
+    return Math.round(num * 100) / 100;
 }
 
 function operate(a, b, operator) {
