@@ -25,6 +25,9 @@ button.forEach((item) => {
         } else if (item.classList.contains("equals")) {
             inputEquals();
             updateDisplay();
+        } else if (item.classList.contains("clear")) {
+            clearDisplay();
+            updateDisplay();
         }
     });
 });
@@ -99,6 +102,15 @@ function inputEquals() {
 
 function rounded (num) {
     return Math.round(num * 100) / 100;
+}
+
+function clearDisplay() {
+    displayValue = "0";
+    firstOperand = null;
+    secondOperand = null;
+    firstOperator = null;
+    secondOperator = null;
+    result = null;
 }
 
 function operate(a, b, operator) {
