@@ -3,7 +3,7 @@ let firstOperand = null;
 let secondOperand = null;
 let firstOperator = null;
 let secondOperator = null;
-let result = 0;
+let result = null;
 
 const button = document.querySelectorAll("button");
 
@@ -19,6 +19,12 @@ button.forEach((item) => {
         if (item.classList.contains("operand")) {
             inputOperand(item.value);
             updateDisplay();
+        } else if (item.classList.contains("operator")) {
+            inputOperator(item.value);
+            updateDisplay();
+        } else if (item.classList.contains("equals")) {
+            inputEquals();
+            updateDisplay();
         }
     });
 });
@@ -33,5 +39,79 @@ function inputOperand(operand) {
         } else {
             displayValue += operand;
         }
+    } else {
+        displayValue = (displayValue === firstOperand) ? operand : displayValue + operand;
+    }
+}
+
+function inputOperator(operator) {
+    if (firstOperator !== null && secondOperator === null) {
+        secondOperator = operator;
+        secondOperand = displayValue;
+        result = operate(Number(firstOperand), Number(secondOperand), firstOperator);
+        displayValue = result.toString();
+        firstOperand = displayValue;
+        result = null;
+    } else if (firstOperator !== null && secondOperator !== null) {
+        secondOperand = displayValue;
+        result = operate(Number(firstOperand), Number(secondOperand), secondOperator)
+        secondOperator = operator;
+        displayValue = result.toString();
+        firstOperand = displayValue;
+        result = null;
+    } else {
+        firstOperator = operator;
+        firstOperand = displayValue;
+    }
+}
+
+function inputEquals() {
+    if (firstOperator === null) {
+        displayValue = firstOperand;
+    } else if (secondOperator !== null) {
+        secondOperand = displayValue;
+        result = operate(Number(firstOperand), Number(secondOperand), secondOperator);
+        if (result === "Error") {
+            displayValue = result;
+        } else {
+            displayValue = result.toString();
+            firstOperand = displayValue;
+            secondOperand = null;
+            firstOperator = null;
+            secondOperator = null;
+            result = null;
+        }
+    } else {
+        secondOperand = displayValue;
+        result = operate(Number(firstOperand), Number(secondOperand), firstOperator);
+        if (result === "Error") {
+            displayValue = result;
+        } else {
+            displayValue = result.toString();
+            firstOperand = displayValue;
+            secondOperand = null;
+            firstOperator = null;
+            secondOperator = null;
+            result = null;
+        }
+    }
+}
+
+function operate(a, b, operator) {
+    switch (operator) {
+        case "+":
+            return a + b;
+            break;
+        case "-":
+            return a - b;
+            break;
+        case "*":
+            return a * b;
+            break;
+        case "/":
+            return (b === 0) ? "Error" : a / b;
+            break;
+        default:
+            break;
     }
 }
