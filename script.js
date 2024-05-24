@@ -31,6 +31,9 @@ button.forEach((item) => {
         } else if (item.classList.contains("percent")) {
             inputPercent(displayValue);
             updateDisplay();
+        } else if (item.classList.contains("sign")) {
+            inputSign(displayValue);
+            updateDisplay();
         }
     });
 });
@@ -109,6 +112,10 @@ function rounded (num) {
 
 function inputPercent(num) {
     displayValue = (num / 100).toString();
+}
+
+function inputSign(num) {
+    displayValue = (num * -1).toString();
 }
 
 function clearDisplay() {
