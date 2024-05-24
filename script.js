@@ -34,6 +34,9 @@ button.forEach((item) => {
         } else if (item.classList.contains("sign")) {
             inputSign(displayValue);
             updateDisplay();
+        } else if (item.classList.contains("decimal")) {
+            inputDecimal(item.value);
+            updateDisplay();
         }
     });
 });
@@ -103,6 +106,16 @@ function inputEquals() {
             secondOperator = null;
             result = null;
         }
+    }
+}
+
+function inputDecimal(dot) {
+    if (displayValue === firstOperand || displayValue === secondOperand) {
+    displayValue = "0";
+    displayValue += dot;
+    }
+    else if (!displayValue.includes(dot)) {
+        displayValue += dot;
     }
 }
 
