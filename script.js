@@ -10,6 +10,9 @@ const button = document.querySelectorAll("button");
 function updateDisplay() {
     const display = document.querySelector(".display");
     display.textContent = displayValue;
+    if (display.textContent > 9) {
+        display.textContent = displayValue.substring(0, 9);
+    }
 }
 
 updateDisplay();
